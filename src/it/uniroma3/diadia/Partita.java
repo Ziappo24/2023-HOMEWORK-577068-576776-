@@ -83,4 +83,8 @@ public class Partita {
 	public void setStanzaCorrente(Stanza prossimaStanza) {
 		this.stanzaCorrente = prossimaStanza;
 	}
+	
+	public boolean giocatoreIsVivo() {
+		return this.giocatore.getCfu() > 0;
+	}
 }

@@ -2,7 +2,7 @@ package it.uniroma3.diadia;
 
 import java.util.Scanner;
 
-public class IOConsole {
+public class IOConsole implements IO {
 	
 	/**
 	 * Stampa il messaggio che apparte sullo schermo per l'utente
