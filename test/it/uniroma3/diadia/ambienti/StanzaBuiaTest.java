@@ -27,7 +27,7 @@ class StanzaBuiaTest {
 	@Test
 	public void testLuce() {
 		stanza.addAttrezzo(attrezzo);
-		assertEquals("stanza" + "\nUscite: " + "\nAttrezzi nella stanza: " + attrezzo.toString() + " ", this.stanza.getDescrizione());
+		assertEquals("stanza" + "\nUscite: []" + "\nAttrezzi nella stanza: [" + attrezzo.toString() + "] ", this.stanza.getDescrizione());
 		System.out.println(this.stanza.getDescrizione());
 	}
 

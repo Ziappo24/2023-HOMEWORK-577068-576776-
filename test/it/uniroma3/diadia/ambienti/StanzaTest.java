@@ -104,22 +104,22 @@ class StanzaTest {
 
 	@Test
 	void testRemoveAttrezzoStanzaVuota() {
-		assertEquals(false, this.stanzaVuota.removeAttrezzo(attrezzo1));
+		assertEquals(false, this.stanzaVuota.removeAttrezzo("Piccone"));
 	}
 	
 	@Test
 	void testRemoveAttrezzoUnAttrezzo() {
-		assertEquals(true, this.stanzaSud.removeAttrezzo(attrezzo7));
+		assertEquals(true, this.stanzaSud.removeAttrezzo("Cacciavite"));
 	}
 	
 	@Test
 	void testRemoveAttrezzoPiuDiUno() {
-		assertEquals(true, this.stanzaNord.removeAttrezzo(attrezzo12));
+		assertEquals(true, this.stanzaNord.removeAttrezzo("Torcia"));
 	}
 	
 	@Test
 	void testRemoveAttrezzoStanzaPiena() {
-		assertEquals(true, this.stanzaPiena.removeAttrezzo(attrezzo2));
+		assertEquals(true, this.stanzaPiena.removeAttrezzo("Ascia"));
 	}
 	
 	@Test

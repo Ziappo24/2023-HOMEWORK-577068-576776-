@@ -7,20 +7,27 @@ import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 class ComandoVaiTest {
 	
+	private static final String NOME_STANZA_PARTENZA = "partenza";
 	private Partita partita;
 	private Comando comandoVai;
 	private Stanza partenza;
+	private Labirinto labirinto;
 	
 	@BeforeEach
 	void setUp() {
 		this.comandoVai = new ComandoVai();
 		this.comandoVai.setIO(new IOConsole());
-		this.partita = new Partita();
-		this.partenza = new Stanza("partenza");
+		this.labirinto = new LabirintoBuilder()
+				.addStanzaIniziale(NOME_STANZA_PARTENZA)
+				.getLabirinto();
+		this.partita = new Partita(labirinto);
+		this.partenza = new Stanza(NOME_STANZA_PARTENZA);
 		this.partita.setStanzaCorrente(this.partenza);
 		
 		/* stanza esistente */
@@ -32,7 +39,7 @@ class ComandoVaiTest {
 	public void testVaiStanzaNonEsistente() {
 		this.comandoVai.setParametro("nord");
 		this.comandoVai.esegui(this.partita);
-		assertEquals("partenza", this.partita.getStanzaCorrente().getNome());
+		assertEquals(NOME_STANZA_PARTENZA, this.partita.getStanzaCorrente().getNome());
 	}
 	
 	@Test
@@ -42,5 +49,15 @@ class ComandoVaiTest {
 		assertEquals("destinazione", this.partita.getStanzaCorrente().getNome());
 	}
 	
+	@Test
+	public void testVaiStanzaPresenteInDirezioneSbagliata() {
+		Stanza destinazione = new Stanza("Destinazione");
+		this.partenza.setNear("sud", destinazione);
+		this.comandoVai.setParametro("nord");
+		this.comandoVai.esegui(partita);
+		assertEquals(NOME_STANZA_PARTENZA, this.partita.getStanzaCorrente().getNome());
+	}
+	
+
 	
 }

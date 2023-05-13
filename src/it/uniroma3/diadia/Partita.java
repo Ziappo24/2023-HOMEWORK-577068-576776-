@@ -19,12 +19,12 @@ public class Partita {
 	private Labirinto labirinto;
 	private Giocatore giocatore;
 
-	public Partita(){
+	public Partita(Labirinto labirinto){
 		
-		labirinto = new Labirinto();
+		this.labirinto = labirinto;
 		this.finita = false;
-		stanzaCorrente = labirinto.getStanzaCorrente();
-		stanzaVincente = labirinto.getStanzaVincente();
+		stanzaCorrente = this.labirinto.getStanzaIngresso();
+		stanzaVincente = this.labirinto.getStanzaVincente();
 		giocatore = new Giocatore();
 	}
 
@@ -86,5 +86,9 @@ public class Partita {
 	
 	public boolean giocatoreIsVivo() {
 		return this.giocatore.getCfu() > 0;
+	}
+	
+	public void setLabirinto(Labirinto labirinto) {
+		this.labirinto = labirinto;
 	}
 }

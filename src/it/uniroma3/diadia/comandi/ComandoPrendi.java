@@ -14,11 +14,11 @@ public class ComandoPrendi implements Comando {
 	@Override
 	public void esegui(Partita partita) {
 		// se in questa partita nella stanza corrente c'è questo attrezzo 
-		if(partita.getStanzaCorrente().hasAttrezzo(this.nomeAttrezzo)) {
-			Attrezzo takenItem = partita.getStanzaCorrente().getAttrezzo(this.nomeAttrezzo);
+		if(partita.getStanzaCorrente().hasAttrezzo(nomeAttrezzo)) {
+			Attrezzo takenItem = partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
 			// prendi l'attrezzo 
 			if(partita.getGiocatore().getBorsa().addAttrezzo(takenItem)) {
-				if(partita.getStanzaCorrente().removeAttrezzo(takenItem)) {
+				if(partita.getStanzaCorrente().removeAttrezzo(nomeAttrezzo)) {
 					this.io.showMsg("L'attrezzo "+ this.nomeAttrezzo +" e' stato preso e messo nello zaino");
 					return;
 				}

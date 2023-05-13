@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 class PartitaTest {
@@ -24,58 +27,65 @@ class PartitaTest {
 	private Partita partita10;
 	private Partita partita11;
 	
+	private Labirinto labirinto;
 	
 	@BeforeEach
 	void setUp() {
+		
+		this.labirinto = new LabirintoBuilder()
+				.addStanzaIniziale("iniziale")
+				.addStanzaVincente("vincente")
+				.getLabirinto();
+		
 		/* setup per vedere se la partita è vinta */
 		// imposto stanza corrente e vincente diverse
-		this.partita1 = new Partita();
+		this.partita1 = new Partita(labirinto);
 		this.corrente1 = new Stanza("Corrente1");
 		this.partita1.setStanzaCorrente(corrente1);
 		
 		// imposto stanza corrente e vincente uguali
-		this.partita2 = new Partita();
+		this.partita2 = new Partita(labirinto);
 		this.partita2.setStanzaCorrente(this.partita2.getStanzaVincente());
 		
 		// una delle due è null
-		this.partita3 = new Partita();
+		this.partita3 = new Partita(labirinto);
 		
 		/* setup per vedere se la partita è finita e basta */
 		
 		// finita vale 1, vinta vale 0, CFU vale 0
-		this.partita4 = new Partita();
+		this.partita4 = new Partita(labirinto);
 		this.partita4.setFinita();
 		this.partita4.getGiocatore().setCfu(0);
 		
 		// finita vale 0, vinta vale 1, CFU vale 0
-		this.partita5 = new Partita();
+		this.partita5 = new Partita(labirinto);
 		this.partita5.setStanzaCorrente(this.partita5.getStanzaVincente());
 		this.partita5.getGiocatore().setCfu(0);
 		
 		// finita vale 0, vinta vale 0, CFU vale 1
-		this.partita6 = new Partita();
+		this.partita6 = new Partita(labirinto);
 		
 		// finita vale 1, vinta vale 1, CFU vale 0
-		this.partita7 = new Partita();
+		this.partita7 = new Partita(labirinto);
 		this.partita7.setFinita();
 		this.partita7.setStanzaCorrente(this.partita1.getStanzaVincente());
 		this.partita7.getGiocatore().setCfu(0);
 		
 		// finita vale 1, vinta vale 0, CFU vale 1
-		this.partita8 = new Partita();
+		this.partita8 = new Partita(labirinto);
 		this.partita8.setFinita();
 		
 		// finita vale 0, vinta vale 1, CFU vale 1
-		this.partita9 = new Partita();
+		this.partita9 = new Partita(labirinto);
 		this.partita9.setStanzaCorrente(this.partita9.getStanzaVincente());
 		
 		// finita vale 1, vinta vale 1, CFU vale 1
-		this.partita10 = new Partita();
+		this.partita10 = new Partita(labirinto);
 		this.partita10.setFinita();
 		this.partita10.setStanzaCorrente(this.partita10.getStanzaVincente());
 		
 		// finita vale 0, vinta vale 0, CFU vale 0
-		this.partita11 = new Partita();
+		this.partita11 = new Partita(labirinto);
 		this.partita11.getGiocatore().setCfu(0);
 	}
 
