@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class IOConsole implements IO {
 	
+	Scanner lineScanner;
+	
 	/**
 	 * Stampa il messaggio che apparte sullo schermo per l'utente
 	 * @param msg
@@ -17,7 +19,7 @@ public class IOConsole implements IO {
 	 * @return la ruga che viene scansionata
 	 */
 	public String readLine() {
-		Scanner lineScanner = new Scanner(System.in);
+		//Scanner lineScanner = new Scanner(System.in);
 		String line = lineScanner.nextLine();
 		// lineScanner.close();
 		return line;

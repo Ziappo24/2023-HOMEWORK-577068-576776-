@@ -2,13 +2,15 @@ package it.uniroma3.diadia.comandi;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.FileNotFoundException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.giocatore.Borsa;
@@ -21,12 +23,10 @@ class ComandoPosaTest {
 	private Labirinto labirinto;
 	
 	@BeforeEach
-	void setUp() {
+	void setUp() throws FileNotFoundException, FormatoFileNonValidoException {
 		this.comandoPosa = new ComandoPosa();
 		this.comandoPosa.setIO(new IOConsole());
-		this.labirinto = new LabirintoBuilder()
-				.addStanzaIniziale("iniziale")
-				.getLabirinto();
+		this.labirinto = Labirinto.newBuilder("labirinto2.txt").getLabirinto();
 		this.partita = new Partita(labirinto);
 		Borsa borsa = partita.getGiocatore().getBorsa();
 		Attrezzo nuovoAttrezzo = new Attrezzo(ARMA_DA_POSARE, 1);

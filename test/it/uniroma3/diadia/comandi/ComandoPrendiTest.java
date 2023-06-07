@@ -2,30 +2,30 @@ package it.uniroma3.diadia.comandi;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.FileNotFoundException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.giocatore.Borsa;
 
 class ComandoPrendiTest {
 	
 	private static final String ARMA_NELLA_STANZA = "arma";
-	private ComandoPrendi comandoPrendi;
+	private AbstractComando comandoPrendi;
 	private Partita partita;
 	private Labirinto labirinto;
 	
 	@BeforeEach
-	void setUp() {
+	void setUp() throws FileNotFoundException, FormatoFileNonValidoException {
 		this.comandoPrendi = new ComandoPrendi();
 		this.comandoPrendi.setIO(new IOConsole());
-		this.labirinto = new LabirintoBuilder()
-				.addStanzaIniziale("iniziale")
-				.getLabirinto();
+		this.labirinto = Labirinto.newBuilder("labirinto2.txt").getLabirinto();
 		this.partita = new Partita(labirinto);
 		Attrezzo nuovoAttrezzo = new Attrezzo(ARMA_NELLA_STANZA, 1);
 		this.partita.getStanzaCorrente().addAttrezzo(nuovoAttrezzo);

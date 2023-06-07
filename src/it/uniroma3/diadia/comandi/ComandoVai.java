@@ -1,57 +1,46 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.IO;
+
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Direzione;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.giocatore.Giocatore;
 
-public class ComandoVai implements Comando {
+public class ComandoVai extends AbstractComando {
 	
 
-	private String parametro;
-	private IO io;
 	private static final String NOME = "vai";
 	
-	/**
-	 * Esecuzione del comando
-	 */
+	public ComandoVai() {
+		super.setNome(NOME);
+	}
+	
 	@Override
 	public void esegui(Partita partita) {
 		Stanza stanzaCorrente = partita.getStanzaCorrente();
 		Stanza nextStanza = null;
 		/* nessuna direzione */
-		if(parametro==null)  {
-			this.io.showMsg("Dove vuoi andare? Devi specificare una direzione");
+		if(super.getParametro()==null)  {
+			super.getIO().showMsg("Dove vuoi andare? Devi specificare una direzione");
 			return;
 		}
-		nextStanza = stanzaCorrente.getStanzaAdiacente(this.parametro);
+		Direzione direzione;
+		try {
+			direzione = Direzione.valueOf(super.getParametro().toUpperCase());
+		} catch (IllegalArgumentException e) {
+			//caso in cui viene specificata una direzione non contemplata dall'enum Direzione
+			super.getIO().showMsg("Direzione insesistente");
+			return;
+		}
+		nextStanza = stanzaCorrente.getStanzaAdiacente(direzione);
 		if(nextStanza==null) {
-			this.io.showMsg("Direzione inesistente");
+			super.getIO().showMsg("Direzione inesistente");
 			return;
 		}
 		partita.setStanzaCorrente(nextStanza);
-		this.io.showMsg(partita.getStanzaCorrente().getNome());
+		super.getIO().showMsg(partita.getStanzaCorrente().getNome());
 		Giocatore giocatore = partita.getGiocatore();
 		giocatore.setCfu(partita.getGiocatore().getCfu()-1);
 	}
 	
-	@Override
-	public void setParametro(String parametro) {
-		this.parametro = parametro;
-	}
-	
-	@Override
-	public void setIO(IO io) {
-		this.io = io;
-	}
-
-	@Override
-	public String getNome() {
-		return NOME;
-	}
-
-	@Override
-	public String getParametro() {
-		return this.parametro;
-	}
 }

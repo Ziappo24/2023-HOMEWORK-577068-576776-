@@ -33,6 +33,10 @@ class StanzaTest {
 
 	private Stanza stanzaVuota;
 
+	private static final Direzione DIREZIONE_NORD = Direzione.NORD;
+	private static final Direzione DIREZIONE_SUD = Direzione.SUD;
+	private static final Direzione DIREZIONE_EST = Direzione.EST;
+	private static final Direzione DIREZIONE_OVEST = Direzione.OVEST;
 	@BeforeEach
 	void setUp() {
 		this.stanzaNord = new Stanza("Nord");
@@ -40,10 +44,10 @@ class StanzaTest {
 		this.stanzaEst = new Stanza("Est");
 		this.stanzaOvest = new Stanza("Ovest");
 		this.emptyAdiacente = new Stanza("Empty Adiacente");
-		this.emptyAdiacente.setNear("nord", stanzaNord);
-		this.emptyAdiacente.setNear("sud", stanzaSud);
-		this.emptyAdiacente.setNear("est", stanzaEst);
-		this.emptyAdiacente.setNear("ovest", stanzaOvest);
+		this.emptyAdiacente.setNear(DIREZIONE_NORD, stanzaNord);
+		this.emptyAdiacente.setNear(DIREZIONE_SUD, stanzaSud);
+		this.emptyAdiacente.setNear(DIREZIONE_EST, stanzaEst);
+		this.emptyAdiacente.setNear(DIREZIONE_OVEST, stanzaOvest);
 		this.stanzaPiena = new Stanza("stanzaPiena");
 
 		/* inizializzo gli attrezzi */

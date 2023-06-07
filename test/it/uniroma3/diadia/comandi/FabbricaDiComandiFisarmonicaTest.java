@@ -50,7 +50,7 @@ class FabbricaDiComandiFisarmonicaTest {
 	}
 	@Test
 	private void testNomeParametroComando(String nomeComando, String comandoAtteso, String parametro) {
-		Comando comando = this.factory.costruisciComando(nomeComando, new IOConsole());
+		AbstractComando comando = this.factory.costruisciComando(nomeComando, new IOConsole());
 		if(parametro!=null)
 			comando.setParametro(parametro);
 		assertEquals(comandoAtteso, comando.getNome());

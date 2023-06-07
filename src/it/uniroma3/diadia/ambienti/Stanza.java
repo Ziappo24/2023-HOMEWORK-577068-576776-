@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
 
 /**
  * Classe Stanza - una stanza in un gioco di ruolo.
@@ -24,13 +25,14 @@ public class Stanza {
 
 	private String nome;
 	private Map<String, Attrezzo> attrezzi;
-	private Map<String, Stanza> stanzeAdiacenti;
-	private Set<String> direzioni;
+	private Map<Direzione, Stanza> stanzeAdiacenti;
+	private Set<Direzione> direzioni;
+	private AbstractPersonaggio personaggio;
 
 
 	public Stanza(String nome) {
 		this.nome = nome;
-		this.stanzeAdiacenti = new HashMap<String, Stanza>(NUMERO_MASSIMO_DIREZIONI);
+		this.stanzeAdiacenti = new HashMap<Direzione, Stanza>(NUMERO_MASSIMO_DIREZIONI);
 		this.attrezzi = new HashMap<String, Attrezzo>(NUMERO_MASSIMO_ATTREZZI);
 		this.direzioni = new TreeSet<>();
 	}
@@ -38,15 +40,16 @@ public class Stanza {
 
 
 	/* nuova implementazione con funzione di HashMap */
-	public void setNear(String direzione, Stanza stanza) {
+	public void setNear(Direzione direzione, Stanza stanza) {
+		if(this.stanzeAdiacenti.size()>=NUMERO_MASSIMO_DIREZIONI)
+				return;
 		this.stanzeAdiacenti.put(direzione, stanza);
-		this.direzioni.add(direzione);
 	}
 
 
 
 	/* nuova implementazione con funzione di HashMap */
-	public Stanza getStanzaAdiacente(String direzione) {
+	public Stanza getStanzaAdiacente(Direzione direzione) {
 		return this.stanzeAdiacenti.get(direzione);
 	}
 
@@ -105,13 +108,23 @@ public class Stanza {
     }
 
 
-	public Map<String, Stanza> getMapStanzeAdiacenti() {
+	public Map<Direzione, Stanza> getMapStanzeAdiacenti() {
 		return this.stanzeAdiacenti;
 	}
 
 
 
-    public Set<String> getDirezioni() {
+    public Set<Direzione> getDirezioni() {
         return this.direzioni;
     }
+
+
+
+	public AbstractPersonaggio getPersonaggio() {
+		return this.personaggio;
+	}
+	
+	public void setPersonaggio(AbstractPersonaggio ap) {
+		this.personaggio = ap;
+	}
 }

@@ -2,37 +2,39 @@ package it.uniroma3.diadia.comandi;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.FileNotFoundException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Direzione;
+import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 class ComandoVaiTest {
 	
 	private static final String NOME_STANZA_PARTENZA = "partenza";
 	private Partita partita;
-	private Comando comandoVai;
+	private AbstractComando comandoVai;
 	private Stanza partenza;
 	private Labirinto labirinto;
+	private static final Direzione DIREZIONE_SUD = Direzione.SUD;
 	
 	@BeforeEach
-	void setUp() {
+	void setUp() throws FileNotFoundException, FormatoFileNonValidoException {
 		this.comandoVai = new ComandoVai();
 		this.comandoVai.setIO(new IOConsole());
-		this.labirinto = new LabirintoBuilder()
-				.addStanzaIniziale(NOME_STANZA_PARTENZA)
-				.getLabirinto();
+		this.labirinto = Labirinto.newBuilder("labirinto2.txt").getLabirinto();
 		this.partita = new Partita(labirinto);
 		this.partenza = new Stanza(NOME_STANZA_PARTENZA);
 		this.partita.setStanzaCorrente(this.partenza);
 		
 		/* stanza esistente */
 		Stanza destinazione = new Stanza("destinazione");
-		this.partenza.setNear("sud", destinazione);
+		this.partenza.setNear(DIREZIONE_SUD, destinazione);
 	}
 
 	@Test
@@ -52,12 +54,9 @@ class ComandoVaiTest {
 	@Test
 	public void testVaiStanzaPresenteInDirezioneSbagliata() {
 		Stanza destinazione = new Stanza("Destinazione");
-		this.partenza.setNear("sud", destinazione);
+		this.partenza.setNear(DIREZIONE_SUD, destinazione);
 		this.comandoVai.setParametro("nord");
 		this.comandoVai.esegui(partita);
 		assertEquals(NOME_STANZA_PARTENZA, this.partita.getStanzaCorrente().getNome());
 	}
-	
-
-	
 }

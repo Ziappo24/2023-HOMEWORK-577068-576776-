@@ -91,4 +91,9 @@ public class Partita {
 	public void setLabirinto(Labirinto labirinto) {
 		this.labirinto = labirinto;
 	}
+
+
+	public Labirinto getLabirinto(){
+		return labirinto;
+	}
 }

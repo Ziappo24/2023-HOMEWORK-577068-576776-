@@ -2,11 +2,13 @@ package it.uniroma3.diadia;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.FileNotFoundException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 class PartitaTest {
@@ -30,12 +32,9 @@ class PartitaTest {
 	private Labirinto labirinto;
 	
 	@BeforeEach
-	void setUp() {
+	void setUp() throws FileNotFoundException, FormatoFileNonValidoException {
 		
-		this.labirinto = new LabirintoBuilder()
-				.addStanzaIniziale("iniziale")
-				.addStanzaVincente("vincente")
-				.getLabirinto();
+		this.labirinto = Labirinto.newBuilder("labirinto2.txt").getLabirinto();
 		
 		/* setup per vedere se la partita è vinta */
 		// imposto stanza corrente e vincente diverse
@@ -146,3 +145,4 @@ class PartitaTest {
 		assertEquals(true, partita11.isFinita());
 	}
 }
+
